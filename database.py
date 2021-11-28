@@ -17,13 +17,24 @@ class  Cadastro():
 
 
     def add_clientes(self):
-
-        self.c.execute("INSERT INTO  clientes_loja VALUES('Adalberto','Soares','adal@.com')")
+        clientes = [
+                     ('Roberto','Jujubo','juro@gmail.com'),
+                     ('Carol', 'Silva', 'casil@gmail.com'),
+                     ('Godofredo', 'Silva', 'gosi@gmail.com'),
+        ]
+        self.c.executemany("INSERT INTO  clientes_loja VALUES(?,?,?)",clientes)
 
         self.conex.commit()
+    def view_all(self):
 
+        self.c.execute("SELECT * FROM  clientes_loja")
+
+        self.view= self.c.fetchall()
+        
+        for item in self.view:
+         print(item[0] + " " + item[1] + "\t\t " + item[2])
 
 #Instancia a classe
 banco_dados = Cadastro()
 # Chama a funçao
-banco_dados.add_clientes()
+banco_dados.view_all()
