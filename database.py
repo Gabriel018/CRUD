@@ -15,7 +15,6 @@ class  Cadastro():
                           Email text,,                        
         )""")
 
-
     def add_clientes(self):
         clientes = [
                      ('Roberto','Jujubo','juro@gmail.com'),
@@ -25,16 +24,31 @@ class  Cadastro():
         self.c.executemany("INSERT INTO  clientes_loja VALUES(?,?,?)",clientes)
 
         self.conex.commit()
+
+    def update(self):
+     self.c.execute(""" UPDATE  clientes_loja SET Nome ='Alfred'  WHERE  Nome ='Adalberto' """)
+
+     self.conex.commit()
+
+    def delete(self):
+      self.c.execute(""" DELETE FROM clientes_loja WHERE Nome= 'Alfred'""" )
+
+      self.conex.commit()
+
     def view_all(self):
 
         self.c.execute("SELECT * FROM  clientes_loja")
 
         self.view= self.c.fetchall()
-        
+
         for item in self.view:
          print(item[0] + " " + item[1] + "\t\t " + item[2])
+
+
+
 
 #Instancia a classe
 banco_dados = Cadastro()
 # Chama a funçao
+banco_dados.delete()
 banco_dados.view_all()
