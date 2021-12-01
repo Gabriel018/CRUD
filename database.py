@@ -1,54 +1,46 @@
 import sqlite3
 
 
+def creat_table(self):
+            self.conex = sqlite3.connect("clientes.db")
+            self.c = self.conex.cursor()
 
-class  Cadastro():
+            self.c.execute("""CREATE TABLE  clientes_loja(
+                              Nome text,
+                              Sobre_Nome text,
+                              Email text,,                        
+            )""")
 
-    def __init__(self):
-        self.conex = sqlite3.connect("clientes.db")
-        self.c = self.conex.cursor()
+def add_clientes(self,Nome,Sobre_Nome,Email):
+            self.conex = sqlite3.connect("clientes.db")
+            self.c = self.conex.cursor()
 
-    def creat_table(self):
-        self.c.execute("""CREATE TABLE  clientes_loja(
-                          Nome text,
-                          Sobre_Nome text,
-                          Email text,,                        
-        )""")
+            self.c.execute("INSERT INTO  clientes_loja VALUES(?,?,?)",(Nome,Sobre_Nome ,Email))
 
-    def add_clientes(self):
-        clientes = [
-                     ('Roberto','Jujubo','juro@gmail.com'),
-                     ('Carol', 'Silva', 'casil@gmail.com'),
-                     ('Godofredo', 'Silva', 'gosi@gmail.com'),
-        ]
-        self.c.executemany("INSERT INTO  clientes_loja VALUES(?,?,?)",clientes)
+            self.conex.commit()
 
-        self.conex.commit()
+def update(self):
+         self.self.c.execute(""" UPDATE  clientes_loja SET Nome ='Alfred'  WHERE  Nome ='Adalberto' """)
 
-    def update(self):
-     self.c.execute(""" UPDATE  clientes_loja SET Nome ='Alfred'  WHERE  Nome ='Adalberto' """)
+         self.self.conex.commit()
 
-     self.conex.commit()
+def delete(self):
+          self.conex = sqlite3.connect("clientes.db")
+          self.c = self.conex.cursor()
+          self.c.execute(""" DELETE FROM clientes_loja WHERE Nome='hg' """ )
 
-    def delete(self):
-      self.c.execute(""" DELETE FROM clientes_loja WHERE Nome= 'Alfred'""" )
+          self.conex.commit()
 
-      self.conex.commit()
+def view_all(self):
+            self.conex = sqlite3.connect("clientes.db")
+            self.c = self.conex.cursor()
 
-    def view_all(self):
+            self.c.execute("SELECT * FROM  clientes_loja")
 
-        self.c.execute("SELECT * FROM  clientes_loja")
+            self.view= self.c.fetchall()
 
-        self.view= self.c.fetchall()
-
-        for item in self.view:
-         print(item[0] + " " + item[1] + "\t\t " + item[2])
+            for item in self.view:
+             print(item[0] + " " + item[1] + "\t\t " + item[2])
 
 
 
-
-#Instancia a classe
-banco_dados = Cadastro()
-# Chama a funçao
-banco_dados.delete()
-banco_dados.view_all()
