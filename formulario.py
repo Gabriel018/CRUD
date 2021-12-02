@@ -1,31 +1,37 @@
+import sys
+
 import PySimpleGUI as py
 import self as self
 
 import database
 from database import *
 
-
+py.theme("DarkGreen3")
 class Self:
     pass
 
 
 class Formulario():
 
-    def __init__(self,):
+    def init(self):
         clientes_view = database.view_all(self)
-        self.layout = [ [ py.Text("Cadastro de Clientes",font="arianl 16",text_color='black',justification = 'center')],
-                       [py.Text("Nome:",font="arial 14",text_color="black",),py.Input(size=(40,1),key='name'),],
-                       [py.Text("Sobrenome:",font="arial 14",text_color="black",),py.Input(size=(40,2),key='name_sobre')],
-                       [py.Text("Email:",font="arial 14",text_color="black"), py.Input(size=(40,2),key='Email')],
-                       [py.Button("Cadastrar", key='add',font="arial 12"),
+        self.layout2 = [ [ py.Text("Cadastro de Clientes",font="arianl 16",justification = 'c')],
+                        [py.Text("Nome:",font="arial 14",justification='c')],
+                        [py.Input(size=(40,1),key='name'),],
+                        [py.Text("Sobrenome:",font="arial 14",)],
+                        [py.Input(size=(40,2),key='name_sobre')],
+                        [py.Text("Email:",font="arial 14",)],
+                        [py.Input(size=(40,2),key='Email')],
+                        [py.Button("Cadastrar", key='add',font="arial 12"),
                         py.Button("Alterar", key='alter',font="arial 12"),
                         py.Button("Deletar", key='del',font="arial 12")],
-                        [py.Text("Lista de Clientes",font="arianl 16",text_color='black')],
-                        [py.Listbox(clientes_view,size=(50,10),key='Box',font='arial')  ]]
+                        [py.Text("Lista de Clientes",font="arianl 16")],
+                        [py.Listbox(clientes_view,size=(50,10),key='Box',font='arial')] ,
+                        [py.Button("Voltar",key="back",font="arial 12"), py.Button("sair",key="exit",font="arial 12")]]
 
-    def Init(self):
 
-        self.janela = py.Window("Fomurlario de clientes", self.layout, size=(600, 500))
+
+        self.janela = py.Window("Fomurlario de clientes", self.layout2, size=(600, 550))
 
         while True:
 
@@ -51,8 +57,9 @@ class Formulario():
                 database.delete(self,x)
                 clientes_view = database.view_all(self)
                 self.janela.find_element('Box').update(clientes_view)
+                py.popup("Deletado com sucesso")
+            if self.event == "exit":
+                sys.exit()
 
-Form = Formulario()
-Form.__init__()
-Form.Init()
+
 
