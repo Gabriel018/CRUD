@@ -15,13 +15,13 @@ def add_clientes(self,Nome,Sobre_Nome,Email):
             self.conex = sqlite3.connect("clientes.db")
             self.c = self.conex.cursor()
 
-            self.c.execute("INSERT INTO  clientes_loja VALUES(?,?,?)",(Nome,Sobre_Nome ,Email))
+            self.c.execute("INSERT INTO  clientes_loja VALUES ( ?,?,?)",(Nome,Sobre_Nome ,Email))
 
             self.conex.commit()
 
 def update(self,Nome,Sobre_Nome,Email):
            self.conex = sqlite3.connect("clientes.db")
-           self.self.c.execute(" UPDATE  clientes_loja SET Nome =? WHERE  Nome =? ",(Nome,Sobre_Nome ,Email))
+           self.self.c.execute(" UPDATE  clientes_loja SET Nome =(?) WHERE  Nome =(?) ",(Nome,Sobre_Nome ,Email))
 
            self.conex.commit()
 
